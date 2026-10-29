@@ -1,12 +1,12 @@
 # Decisions
 
-The record for product choices Matt has accepted. A proposal is not approved until Matt answers it.
+The record for product choices the owner has accepted. A proposal is not approved until the owner answers it.
 
 ## Chosen on <DATE>
 
 | Topic | Decision |
 | --- | --- |
-| Repository | Private GitHub repository Maho1975/<REPO>. |
+| Repository | Private GitHub repository <OWNER>/<REPO>. |
 
 ## Still open
 
