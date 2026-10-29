@@ -1,39 +1,36 @@
 # Delivery workflow
 
-The rules are in [AGENTS.md](../../AGENTS.md). This page draws them.
+The rules are in [AGENTS.md](../../AGENTS.md). This page draws them. Which model runs each lane is set in the delivery agent's config, not here.
 
 ## 1. Card to pull request
 
 ```mermaid
 flowchart TD
-    A["Matt writes the card<br/>Outcome, acceptance, risk, boundaries"] --> B{"Size check<br/>About 25 files, under 15 min"}
+    A["Delivery owner writes the card<br/>Outcome, acceptance, risk, boundaries<br/>Owner approves it"] --> B{"Size check<br/>One session, about 25 files"}
     B -- "Too big" --> A2["Split into smaller cards"]
     A2 --> B
-    B -- "Fits" --> C["Todo (Ready)<br/>Builder and reviewer named"]
-    C --> D1["Sol 6.1<br/>Core logic, imports"]
-    C --> D2["Claude Sonnet<br/>Low-risk builds"]
-    C --> D3["Claude Opus<br/>Wide refactors"]
-    C --> D4["GPT-6 Luna<br/>Mechanical fixes"]
-    D1 --> E["Build starts<br/>In Progress, branch from main"]
+    B -- "Fits" --> C["Todo (Ready)<br/>Builder, reviewer and Scope paths named"]
+    C --> D1["Codex lane<br/>Core logic, data, imports"]
+    C --> D2["Claude lane<br/>Low-risk builds, screens, refactors"]
+    D1 --> E["Build starts<br/>In Progress, branch from main<br/>Parallel only if Scope paths don't overlap"]
     D2 --> E
-    D3 --> E
-    D4 --> E
-    E --> F["PR opened<br/>Linked on the card"]
+    E --> F["PR opened<br/>Linked on the card<br/>test: cursor + other family's review label"]
 ```
 
 ## 2. Tests, review and repairs
 
 ```mermaid
 flowchart TD
-    A["PR open, In Review"] --> B["Cursor tests<br/>test: cursor, Composer 2.5"]
-    A --> C["Independent review<br/>Codex-built → Claude Opus<br/>Claude-built → Grok 4.7 High"]
+    A["PR open, In Review"] --> B["Cursor tests<br/>test: cursor, scoped to the change"]
+    A --> C["Independent review<br/>Another model family than the builder<br/>Review only, no test run"]
     B --> D{"Both pass on the same SHA?<br/>Nothing contradicts"}
     C --> D
-    D -- "Fail" --> E["Same builder fixes<br/>Back to In Progress"]
-    E -- "Re-runs tests and review" --> A
-    E -- "After 2 repair rounds" --> F["Blocked<br/>Astra diagnoses"]
+    D -- "Fail" --> E["Repair card for a different builder<br/>One that hasn't written code on this PR"]
+    E -- "Push, then relabel both labels" --> A
+    E -- "After 2 rounds, or no builder left" --> F["Blocked + needs_you<br/>Diagnosis posted, nobody assigned"]
     D -- "Pass" --> G["Ready to merge<br/>Go to step 3"]
-    P["Platform out<br/>Checkpoint on card, next lane<br/>Pause, never skip review"]
+    S["Stall check<br/>No run 5 min after a push: relabel once<br/>Idle 30 min: needs_you"]
+    P["Platform out<br/>Checkpoint on card, next active builder<br/>Pause, never skip review"]
 ```
 
 ## 3. Merge to Done
@@ -43,8 +40,8 @@ flowchart TD
     A["Delivery agent merge check<br/>TESTS PASS + PASS on exact head<br/>No do not merge label"] --> B["Mirror verdicts to PR<br/>Linear-only verdicts copied over"]
     B --> C["Squash merge<br/>SHA pinned, branch deleted"]
     C --> D["Card to Verify<br/>Merged is not deployed"]
-    D --> E["Matt checks running result<br/>Accepts: Verify to Done"]
-    E --> F["End of card<br/>Clean sessions, worktrees, test DBs<br/>Scorecard row, one note to Matt"]
+    D --> E["Owner checks running result<br/>Accepts: Verify to Done"]
+    E --> F["End of card<br/>Clean sessions, worktrees, test DBs<br/>Scorecard row, one note to the owner"]
 ```
 
 ## Linear states

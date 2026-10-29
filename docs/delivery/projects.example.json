@@ -1,0 +1,50 @@
+{
+  "active_project": "<REPO>",
+  "projects": {
+    "<REPO>": {
+      "repository": "<OWNER>/<REPO>",
+      "team_id": "<LINEAR TEAM ID>",
+      "project_id": "<LINEAR PROJECT ID>",
+      "issue_prefix": "<ISSUE PREFIX>",
+      "base_branches": ["main"],
+      "builders": [
+        {"model": "<CODEX MODEL ID>", "name": "<CODEX MODEL NAME>", "family": "openai", "lane": "sol", "active": true},
+        {"model": "<CLAUDE MODEL ID>", "name": "<CLAUDE MODEL NAME>", "family": "anthropic", "lane": "opus", "active": true}
+      ],
+      "repair_preference": ["<CODEX MODEL ID>", "<CLAUDE MODEL ID>"],
+      "repair_rounds": 2,
+      "stall_minutes": 30,
+      "labels": {
+        "ready": "sol-ready",
+        "opus_ready": "opus-ready",
+        "test": "sol-test",
+        "base_prefix": "sol-base:",
+        "review": "review: grok",
+        "tests": "test: cursor",
+        "blocked": "Blocked",
+        "verify": "Verify",
+        "old_review": "Review",
+        "hold": "do not merge",
+        "with": {
+          "sol_building": "Codex building",
+          "opus_building": "Opus building",
+          "grok_reviewing": "Reviewing",
+          "waiting_on_another_card": "Waiting on another card",
+          "ready_to_accept": "Ready to accept"
+        }
+      },
+      "routing": {
+        "sol": ["calculation", "migration", "import", "sync", "matching", "data"],
+        "opus": ["screen", "layout", "copy", "ux", "design", "refactor", "docs", "spec"],
+        "mixed_to_opus": []
+      },
+      "cursor_review_prompt": "/absolute/checkout/docs/delivery/cursor-reviewer-prompt.md",
+      "cursor_tests_prompt": "/absolute/checkout/docs/delivery/cursor-tests-prompt.md",
+      "trusted_github": ["<CURSOR INTEGRATION LOGIN>"],
+      "trusted_linear": ["<CURSOR INTEGRATION LINEAR USER ID>"],
+      "github_token_file": "/absolute/private/github.env",
+      "linear_key_file": "/absolute/private/linear.key",
+      "claude_token_file": "/absolute/private/claude.env"
+    }
+  }
+}
