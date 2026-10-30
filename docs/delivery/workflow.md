@@ -14,7 +14,7 @@ flowchart TD
     C --> D2["Claude lane<br/>Low-risk builds, screens, refactors"]
     D1 --> E["Build starts<br/>In Progress, branch from main<br/>Parallel only if Scope paths don't overlap"]
     D2 --> E
-    E --> F["PR opened<br/>Linked on the card<br/>test: cursor + other family's review label"]
+    E --> F["PR opened<br/>Linked on the card<br/>test: cursor + the review label of a different model"]
 ```
 
 ## 2. Tests, review and repairs
@@ -22,12 +22,12 @@ flowchart TD
 ```mermaid
 flowchart TD
     A["PR open, In Review"] --> B["Cursor tests<br/>test: cursor, scoped to the change"]
-    A --> C["Independent review<br/>Another model family than the builder<br/>Review only, no test run"]
+    A --> C["Independent review<br/>A different model from the builder, fresh session<br/>Review only, no test run"]
     B --> D{"Both pass on the same SHA?<br/>Nothing contradicts"}
     C --> D
     D -- "Fail" --> E["Repair card for a different builder<br/>One that hasn't written code on this PR"]
     E -- "Push, then relabel both labels" --> A
-    E -- "After 2 rounds, or no builder left" --> F["Blocked + needs_you<br/>Diagnosis posted, nobody assigned"]
+    E -- "After 2 rounds" --> F["Cancel the card<br/>Top tier rewrites and rebuilds<br/>No eligible builder: Blocked + needs_you"]
     D -- "Pass" --> G["Ready to merge<br/>Go to step 3"]
     S["Stall check<br/>No run 5 min after a push: relabel once<br/>Idle 30 min: needs_you"]
     P["Platform out<br/>Checkpoint on card, next active builder<br/>Pause, never skip review"]
@@ -41,7 +41,7 @@ flowchart TD
     B --> C["Squash merge<br/>SHA pinned, branch deleted"]
     C --> D["Card to Verify<br/>Merged is not deployed"]
     D --> E["Owner checks running result<br/>Accepts: Verify to Done"]
-    E --> F["End of card<br/>Clean sessions, worktrees, test DBs<br/>Scorecard row, one note to the owner"]
+    E --> F["End of card<br/>Clean sessions, worktrees, test DBs<br/>Scorecard row with model and token cost, one note to the owner"]
 ```
 
 ## Linear states
