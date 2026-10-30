@@ -14,6 +14,21 @@
       "repair_preference": ["<CODEX MODEL ID>", "<CLAUDE MODEL ID>"],
       "repair_rounds": 2,
       "stall_minutes": 30,
+      "pre_publish_checks": [
+        {"paths": ["<SOURCE DIR>/"], "commands": [["<CHECK COMMAND>"]]},
+        {"paths": ["<SOURCE DIR>/"], "suffix": ".test.<EXT>", "commands": [["<TEST RUNNER>", "{files}"]]},
+        {"paths": ["<E2E DIR>/"], "suffix": ".spec.<EXT>", "database": true, "commands": [["<E2E RUNNER>", "{files}"]]}
+      ],
+      "review_limit": 8,
+      "backlog_review": {
+        "enabled": true,
+        "cancel_patterns": ["Repair for {id}"],
+        "list_patterns": ["follow-up to {id}", "{id}"],
+        "replace_keywords": ["Replaces", "Supersedes"],
+        "keep_labels": ["Blocked"],
+        "keep_markers": ["decision pending"],
+        "cancel_state": "Canceled"
+      },
       "labels": {
         "ready": "sol-ready",
         "opus_ready": "opus-ready",
