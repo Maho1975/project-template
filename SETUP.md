@@ -13,4 +13,5 @@ Do these once, in order, then delete this file.
 9. Add this project to the delivery agent's projects config on the server: copy docs/delivery/projects.example.json into it, fill the placeholders, and list the builders this project uses.
 10. Restart the delivery agent at idle (`delivery.py --wait-idle`, then restart the service).
 11. In .claude/settings.json, set `<SERVER_HOST>` to the server's Tailscale name, so cloud threads can run server work without a prompt. The owner approves this once.
-12. Run one disposable `sol-test` card, then one real low-risk card end to end.
+12. Run one disposable `sol-test` card to prove the agent picks up cards.
+13. Write the first cards: the Builds page, from docs/delivery/builds-page.md. They are the first real cards end to end. No product card goes to Todo until they are Done.
