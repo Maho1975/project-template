@@ -81,6 +81,8 @@ Never Fast or Ultrafast on any model, including retries. No model ladder, no dup
 - Record at start on the card: role, platform, model, effort, session id, Fast off, branch. Close with: model, compactions, repair rounds, plan usage where shown (else "unavailable").
 - After two context compactions or 24 hours, write the checkpoint and continue in a new session.
 - A build session with no new activity for 20 minutes is checked. A confirmed dead session is archived with its checkout and continued once, in a new session, from that checkpoint.
+- Never park work where nothing will wake it. A thread that ends its turn waiting on anything (a test run, a review, a merge, a server step) first schedules its own re-check, and spaces later checks further apart. A Cursor run that ends neutral or with no verdict is a stall: relabel once, then hand the role to its cloud fallback.
+- Server work (agent updates, server config, releases, data moves on the server) runs from a cloud thread over Tailscale SSH; `.claude/settings.json` allows `tailscale ssh root@<SERVER_HOST>` so it needs no prompt. Never route server work through a session on the owner's PC: those sessions end about an hour after they start and nothing wakes them. When a safety check blocks a step, ask the owner in the same turn, once, with a recommendation; never wait silently.
 
 ## End of card
 
