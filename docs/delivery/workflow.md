@@ -2,6 +2,15 @@
 
 The rules are in [AGENTS.md](../../AGENTS.md). This page draws them. Which model runs each lane is set in the delivery agent's config, not here.
 
+## 0. First cards
+
+```mermaid
+flowchart LR
+    A["Project set up<br/>SETUP.md done, sol-test card passed"] --> B["Builds page cards<br/>Mockup in the project's design, data, screens<br/>docs/delivery/builds-page.md"]
+    B --> C["Owner accepts the Builds page"]
+    C --> D["Product cards may go to Todo"]
+```
+
 ## 1. Card to pull request
 
 ```mermaid

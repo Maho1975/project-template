@@ -1,6 +1,6 @@
 # Delivery
 
-Owner: Claude (Opus). Work board: Linear, project "<LINEAR PROJECT>". The rules are in [AGENTS.md](../../AGENTS.md); the flow is drawn in [workflow.md](workflow.md). This folder also holds the two Cursor automation prompts and an example entry for the delivery agent's projects config ([projects.example.json](projects.example.json)).
+Owner: Claude (Opus). Work board: Linear, project "<LINEAR PROJECT>". The rules are in [AGENTS.md](../../AGENTS.md); the flow is drawn in [workflow.md](workflow.md). This folder also holds what the first card builds ([builds-page.md](builds-page.md)), the two Cursor automation prompts and an example entry for the delivery agent's projects config ([projects.example.json](projects.example.json)).
 
 ## Cursor automations (owner's account)
 
@@ -36,7 +36,7 @@ After each merge, `backlog_review` checks the open Backlog and Todo cards. `canc
 - **Stall check.** Every open PR with `test: cursor` or a review label is watched. No Cursor run five minutes after a head lands, or a run in progress for over 45 minutes, gets one relabel of both labels per SHA; if nothing runs fifteen minutes later it posts one card note. A PR with no new commit, receipt, repair or running check for `stall_minutes` raises `needs_you` naming the PR and the reason.
 - **Dead sessions.** A build with no new activity for 20 minutes is probed. A confirmed dead session is archived with its checkout and the card is continued once in a new session.
 - **Capacity.** A provider capacity error releases the card to Todo and retries on the same builder after 5, 15 and 30 minutes, then blocks it with a plain reason.
-- **Builds view.** It writes a private snapshot (now building, queue, review, history, `needs_you`, builders) that a dashboard can read. Every name in it comes from the running model and effort, never a lane name, unless the model is unknown.
+- **Builds view.** It writes a private snapshot (now building, queue, review, history, `needs_you`, builders) that the project's Builds page reads. Every name in it comes from the running model and effort, never a lane name, unless the model is unknown. The Builds page is the first thing each project builds; what it shows is in [builds-page.md](builds-page.md).
 
 Restart the agent only at idle (`delivery.py --wait-idle`), so no build is cut off. Release scripts use that command, not a process search.
 
