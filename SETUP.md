@@ -10,6 +10,7 @@ Do these once, in order, then delete this file.
 6. In GitHub repo settings, turn on "Automatically delete head branches".
 7. In Cursor, create "<PROJECT> - Cursor Tests" from docs/delivery/README.md.
 8. In Cursor, create "<PROJECT> - Grok Reviewer" from docs/delivery/README.md.
-9. Add this project to the delivery agent's projects config on your PC: copy docs/delivery/projects.example.json into it, fill the placeholders, and list the builders this project uses.
+9. Add this project to the delivery agent's projects config on the server: copy docs/delivery/projects.example.json into it, fill the placeholders, and list the builders this project uses.
 10. Restart the delivery agent at idle (`delivery.py --wait-idle`, then restart the service).
-11. Run one disposable `sol-test` card, then one real low-risk card end to end.
+11. In .claude/settings.json, set `<SERVER_HOST>` to the server's Tailscale name, so cloud threads can run server work without a prompt. The owner approves this once.
+12. Run one disposable `sol-test` card, then one real low-risk card end to end.

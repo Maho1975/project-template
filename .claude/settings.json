@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(tailscale ssh root@<SERVER_HOST>:*)"
+    ]
+  }
+}
