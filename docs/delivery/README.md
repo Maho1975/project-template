@@ -19,6 +19,14 @@ One delivery agent on the owner's PC serves every project. Each project is one e
 
 `repair_preference` lists every model once, in the order to try for repairs. `repair_rounds` (default 2) caps repair rounds per card. `stall_minutes` (default 30) is the idle limit for PRs and waiting repairs.
 
+### Review limit, backlog review and scoped checks
+
+`review_limit` (default 8) caps the cards in the In Review state, merged Verify cards included. Each pass the loop counts them. At the limit or above, no lane claims a new card and no ready card is handed to a cloud thread; repair cards for open PRs are still claimed so the count can fall. The pause is logged once when it starts and once when it ends, the dashboard shows "Paused: N cards in review (limit N)" with the cards waiting on acceptance, and claiming resumes on the next poll once the count is below the limit.
+
+After each merge, `backlog_review` checks the open Backlog and Todo cards. `cancel_patterns` (matched at the start of a title or first description line, `{id}` standing for a card the merge landed) and cards on a `replace_keywords` line of the PR body (for example `Replaces <ID>`) are cancelled in `cancel_state` with a comment naming the merge. `list_patterns`, or a card whose named paths were all changed by the merge, are only listed once on the merged card as "possibly superseded". A card with a `keep_labels` label or a `keep_markers` phrase, or a parent card, is never cancelled. Set `enabled` to false to turn the review off.
+
+`pre_publish_checks` maps changed paths to the checks the agent runs once before it publishes a builder's work. A rule applies when a changed path starts with one of its `paths` and ends with `suffix`; `{files}` stands for the matching changed files; `database` starts a disposable database. A docs-only change runs nothing. Builders run only the checks for what they changed; the Cursor test run covers the rest.
+
 ### What the agent does
 
 - **Dispatch.** Takes Todo cards with a lane's ready label by priority, then age. A card goes to the lane its ready label names. Cards run in parallel only when their Scope paths don't overlap.
