@@ -6,7 +6,7 @@ Agents that change this repo follow this file. Linear project "<LINEAR PROJECT>"
 
 <One paragraph: what the product is, who uses it, what is out of scope.>
 
-Stack: <languages, frameworks, runtime versions, database>.
+Stack: <languages, frameworks, runtime versions, database>. A Node project uses system Node 22 or later.
 
 ## Project rules
 

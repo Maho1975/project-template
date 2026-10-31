@@ -13,6 +13,8 @@ Set the model and effort in each automation to match the builder pool below. The
 
 One delivery agent on the owner's PC serves every project. Each project is one entry in its owner-managed projects config, a private file outside any repo (owner-only, mode 0600), with its own state directory. Nothing project-specific is built into the agent: repository, Linear team and project, issue prefix, base branches, labels, builders and thresholds all come from the entry. Copy [projects.example.json](projects.example.json), fill the placeholders and add it under `projects`.
 
+The agent's service user must have system Node 22 or later and npm on its PATH. Do not add a version-manager (nvm) directory to the PATH.
+
 ### Builder pool
 
 `builders` lists every model the project may use. Each has a `model` id, a display `name`, a `family`, a `lane` and an `active` flag. At most one builder per lane is active, and that builder sets the model the lane runs. Swapping a model, bringing an old one back or adding a new one is a config change only; no code or prompt changes.
