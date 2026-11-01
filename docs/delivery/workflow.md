@@ -36,10 +36,10 @@ flowchart TD
     C --> D
     D -- "Fail" --> E["Repair card for a different builder<br/>One that hasn't written code on this PR"]
     E -- "Push, then relabel both labels" --> A
-    E -- "After 2 rounds" --> F["Cancel the card<br/>Top tier rewrites and rebuilds<br/>No eligible builder: Blocked + needs_you"]
+    E -- "After 2 rounds" --> F["Stop and diagnose: brief, environment, design or code<br/>Brief or code: cancel, rewrite or rebuild from main<br/>No eligible builder: Blocked + needs_you"]
     D -- "Pass" --> G["Ready to merge<br/>Go to step 3"]
     S["Stall check<br/>No run 5 min after a push: relabel once<br/>Idle 30 min: needs_you"]
-    P["Platform out<br/>Checkpoint on card, next active builder<br/>Pause, never skip review"]
+    P["Quota or outage<br/>Checkpoint on card, switch to the backup list (model-routing.md)<br/>Pause, never skip review"]
 ```
 
 ## 3. Merge to Done

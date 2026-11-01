@@ -11,7 +11,8 @@ Do these once, in order, then delete this file.
 7. In Cursor, create "<PROJECT> - Cursor Tests" from docs/delivery/README.md.
 8. In Cursor, create "<PROJECT> - Grok Reviewer" from docs/delivery/README.md.
 9. Add this project to the delivery agent's projects config on the server: copy docs/delivery/projects.example.json into it, fill the placeholders, and list the builders this project uses.
-10. Restart the delivery agent at idle (`delivery.py --wait-idle`, then restart the service).
-11. In .claude/settings.json, set `<SERVER_HOST>` to the server's Tailscale name, so cloud threads can run server work without a prompt. The owner approves this once.
-12. Run one disposable `sol-test` card to prove the agent picks up cards.
-13. Write the first cards: the Builds page, from docs/delivery/builds-page.md. They are the first real cards end to end. No product card goes to Todo until they are Done.
+10. Fill in docs/delivery/model-routing.md: name each model slot in its Models table, the providers, their soft limits and backup order, and write one single-provider list per provider. Use the same models as the builder pool in step 9.
+11. Restart the delivery agent at idle (`delivery.py --wait-idle`, then restart the service).
+12. In .claude/settings.json, set `<SERVER_HOST>` to the server's Tailscale name, so cloud threads can run server work without a prompt. The owner approves this once.
+13. Run one disposable `sol-test` card to prove the agent picks up cards.
+14. Write the first cards: the Builds page, from docs/delivery/builds-page.md. They are the first real cards end to end. No product card goes to Todo until they are Done.

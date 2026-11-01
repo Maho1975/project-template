@@ -1,6 +1,6 @@
 # Delivery
 
-Owner: Claude (Opus). Work board: Linear, project "<LINEAR PROJECT>". The rules are in [AGENTS.md](../../AGENTS.md); the flow is drawn in [workflow.md](workflow.md). This folder also holds what the first card builds ([builds-page.md](builds-page.md)), the two Cursor automation prompts and an example entry for the delivery agent's projects config ([projects.example.json](projects.example.json)).
+Owner: Claude (Opus). Work board: Linear, project "<LINEAR PROJECT>". The rules are in [AGENTS.md](../../AGENTS.md); the flow is drawn in [workflow.md](workflow.md). This folder also holds [model-routing.md](model-routing.md), which says which model does each task and what happens when a subscription runs out, what the first card builds ([builds-page.md](builds-page.md)), the two Cursor automation prompts and an example entry for the delivery agent's projects config ([projects.example.json](projects.example.json)).
 
 ## Cursor automations (owner's account)
 
@@ -17,7 +17,7 @@ The agent's service user must have system Node 22 or later and npm on its PATH. 
 
 ### Builder pool
 
-`builders` lists every model the project may use. Each has a `model` id, a display `name`, a `family`, a `lane` and an `active` flag. At most one builder per lane is active, and that builder sets the model the lane runs. Swapping a model, bringing an old one back or adding a new one is a config change only; no code or prompt changes.
+`builders` lists every model the project may use, the same models as the Models table in [model-routing.md](model-routing.md); change both in one change. Each has a `model` id, a display `name`, a `family`, a `lane` and an `active` flag. At most one builder per lane is active, and that builder sets the model the lane runs. Swapping a model, bringing an old one back or adding a new one is a config change only; no code or prompt changes.
 
 `repair_preference` lists every model once, in the order to try for repairs. `repair_rounds` (default 2) caps repair rounds per card. `stall_minutes` (default 30) is the idle limit for PRs and waiting repairs.
 

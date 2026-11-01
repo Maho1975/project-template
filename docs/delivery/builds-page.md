@@ -6,7 +6,7 @@ The rule in [AGENTS.md](../../AGENTS.md) is short: no product card goes to Todo 
 
 ## What it follows
 
-The page follows the project's model routing file and process map (`docs/delivery/model-routing.md`; until the project has one, the builder pool in the delivery agent's config). The process map's steps are the page's steps, and the routing file's lists and tasks are what the page uses to say who builds, tests and reviews each card. When the routing file changes, the page changes with it, with no code change.
+The page follows the project's model routing file and process map (`docs/delivery/model-routing.md`, filled in at setup). The process map's steps are the page's steps, and the routing file's lists and tasks are what the page uses to say who builds, tests and reviews each card. When the routing file changes, the page changes with it, with no code change.
 
 ## What it shows
 
